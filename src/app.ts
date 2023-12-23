@@ -44,9 +44,9 @@ bot.catch((err) => {
     }
 });
 
-bot.command("pika", async (ctx: Context) => {
+bot.command("generate", async (ctx: Context) => {
     jobs.push([ctx.chat.id, ctx.message.message_id, ctx.match as string]);
-    const sent_context: Message.TextMessage = await ctx.reply("Pika pika\\. Pika pika\\. ", {
+    const sent_context: Message.TextMessage = await ctx.reply("*dolphine noises*\\. ", {
         parse_mode: "MarkdownV2",
         reply_to_message_id: ctx.update.message.message_id,
 
@@ -79,7 +79,7 @@ async function contactMidjourney(ctx: Context, sent_context?: Message.TextMessag
                     bot.api.editMessageText(
                         sent_context.chat.id,
                         sent_context.message_id,
-                        "Pika Pika Pika pika :\\. Pika\\.", {
+                        "*dolphine noises*\\. ich bein fur *error*\\.", {
                             parse_mode: "MarkdownV2"
                         }
                     )
@@ -93,7 +93,7 @@ async function contactMidjourney(ctx: Context, sent_context?: Message.TextMessag
                 return;
             } else if (get_job_data.progress === -1) {
                 // JOB NOT YET STARTED
-                if (times_updated === 30 || get_job_data.state === 'canceled') {
+                if (times_updated === 10 || get_job_data.state === 'canceled') {
                     await cancelJob(add_job_data.id);
                     jobs.shift();
                     
@@ -101,7 +101,7 @@ async function contactMidjourney(ctx: Context, sent_context?: Message.TextMessag
                         bot.api.editMessageText(
                             sent_context.chat.id,
                             sent_context.message_id,
-                            "Pika Pika Pika pika :\\. Pika\\.", {
+                            "*dolphine noises*\\. ich bein fur *error*\\.", {
                                 parse_mode: "MarkdownV2"
                             }
                         )
@@ -136,7 +136,7 @@ async function contactMidjourney(ctx: Context, sent_context?: Message.TextMessag
                         bot.api.editMessageText(
                             sent_context.chat.id,
                             sent_context.message_id,
-                            "Pika pika\\. Pika pika\\. " + get_job_data.progress + '% finished\\.', {
+                            "*dolphine noises*\\. " + get_job_data.progress + '% finished\\.', {
                                 parse_mode: "MarkdownV2"
                             }
                         )

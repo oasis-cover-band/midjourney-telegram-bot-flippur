@@ -53,9 +53,9 @@ exports.bot.catch((err) => {
         console.error("Unknown error:", e);
     }
 });
-exports.bot.command("pika", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+exports.bot.command("generate", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     jobs.push([ctx.chat.id, ctx.message.message_id, ctx.match]);
-    const sent_context = yield ctx.reply("Pika pika\\. Pika pika\\. ", {
+    const sent_context = yield ctx.reply("*dolphine noises*\\. ", {
         parse_mode: "MarkdownV2",
         reply_to_message_id: ctx.update.message.message_id,
     });
@@ -79,13 +79,30 @@ function contactMidjourney(ctx, sent_context, outer_interval) {
         const interval = setInterval(() => __awaiter(this, void 0, void 0, function* () {
             times_updated++;
             const get_job_data = yield (0, midjourney_api_1.getJob)(add_job_data.id);
-            if (get_job_data.progress === -1) {
+            if (get_job_data.state === 'canceled') {
+                yield (0, midjourney_api_1.cancelJob)(add_job_data.id);
+                jobs.shift();
+                try {
+                    exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. ich bein fur error\\.", {
+                        parse_mode: "MarkdownV2"
+                    });
+                }
+                catch (e) {
+                    console.log(e);
+                }
+                if (outer_interval) {
+                    clearInterval(outer_interval);
+                }
+                clearInterval(interval);
+                return;
+            }
+            else if (get_job_data.progress === -1) {
                 // JOB NOT YET STARTED
-                if (times_updated === 20 || get_job_data.state === 'canceled') {
+                if (times_updated === 30 || get_job_data.state === 'canceled') {
                     yield (0, midjourney_api_1.cancelJob)(add_job_data.id);
                     jobs.shift();
                     try {
-                        exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "Pika Pika Pika pika :\\. Pika\\.", {
+                        exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. ich bein fur error\\.", {
                             parse_mode: "MarkdownV2"
                         });
                     }
@@ -118,7 +135,7 @@ function contactMidjourney(ctx, sent_context, outer_interval) {
                 if (get_job_data.progress !== last_progress_update) {
                     last_progress_update = get_job_data.progress;
                     try {
-                        exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "Pika pika\\. Pika pika\\. " + get_job_data.progress + '% finished\\.', {
+                        exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. " + get_job_data.progress + '% finished\\.', {
                             parse_mode: "MarkdownV2"
                         });
                     }

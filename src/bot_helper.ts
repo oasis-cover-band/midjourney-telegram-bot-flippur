@@ -28,6 +28,7 @@
     context_text = replaceAll(context_text, "dick", '');
     context_text = replaceAll(context_text, "penis", '');
     context_text = replaceAll(context_text, "drugs", '');
+    context_text = replaceAll(context_text, "cocaine", 'white powder');
     context_text = replaceAll(context_text, "nigger", '');
     context_text = replaceAll(context_text, "chink", '');
     context_text = replaceAll(context_text, "dyke", '');

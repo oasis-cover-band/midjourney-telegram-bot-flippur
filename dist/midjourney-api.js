@@ -19,6 +19,7 @@ function addJob(prompt) {
         if (prompt.length > 1000) {
             prompt = prompt.substring(0, 999);
         }
+        console.log('inside add job');
         const response = yield axios_1.default.get(process.env.HTTP_ENDPOINT + '/addjob?key=' + process.env.MJ_API_KEY + '&prompt=' + process.env.PRE_PROMPT_THEMEING + ' ' + prompt + ' ' + process.env.PROMPT_THEMEING);
         console.log('MIDJOURNEY RESPONSE', response.data);
         return response.data.data;

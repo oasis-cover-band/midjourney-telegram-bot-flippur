@@ -4,6 +4,7 @@ export async function addJob(prompt: string) {
     if (prompt.length > 1000) {
         prompt = prompt.substring(0, 999);
     }
+    console.log('inside add job');
     const response = await axios.get(
         process.env.HTTP_ENDPOINT + '/addjob?key=' + process.env.MJ_API_KEY + '&prompt=' + process.env.PRE_PROMPT_THEMEING + ' ' + prompt + ' ' + process.env.PROMPT_THEMEING
     );
