@@ -62,13 +62,14 @@ exports.bot.catch((err) => {
     }
 });
 exports.bot.on("::mention", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
-    if (count < audioFiles.length - 1) {
-        count++;
-    }
-    else {
-        count = 0;
-    }
-    ctx.replyWithAudio(audioFiles[0]);
+    // if (count < audioFiles.length - 1) {
+    //     count++;
+    // } else {
+    //     count = 0;
+    // }
+    // ctx.replyWithAudio(
+    //     audioFiles[0]
+    // );
 }));
 exports.bot.command("generate", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     jobs.push([ctx.chat.id, ctx.message.message_id, ctx.match]);
