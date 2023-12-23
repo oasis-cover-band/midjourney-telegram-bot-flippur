@@ -83,7 +83,7 @@ function contactMidjourney(ctx, sent_context, outer_interval) {
                 yield (0, midjourney_api_1.cancelJob)(add_job_data.id);
                 jobs.shift();
                 try {
-                    exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. ich bein fur error\\.", {
+                    exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. ich bein fur *error*\\.", {
                         parse_mode: "MarkdownV2"
                     });
                 }
@@ -98,11 +98,11 @@ function contactMidjourney(ctx, sent_context, outer_interval) {
             }
             else if (get_job_data.progress === -1) {
                 // JOB NOT YET STARTED
-                if (times_updated === 30 || get_job_data.state === 'canceled') {
+                if (times_updated === 10 || get_job_data.state === 'canceled') {
                     yield (0, midjourney_api_1.cancelJob)(add_job_data.id);
                     jobs.shift();
                     try {
-                        exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. ich bein fur error\\.", {
+                        exports.bot.api.editMessageText(sent_context.chat.id, sent_context.message_id, "*dolphine noises*\\. ich bein fur *error*\\.", {
                             parse_mode: "MarkdownV2"
                         });
                     }
