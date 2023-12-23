@@ -1,4 +1,4 @@
-import { Bot, Context, GrammyError, HttpError, webhookCallback } from "grammy";
+import { Bot, Context, GrammyError, HttpError } from "grammy";
 import { autoRetry } from "@grammyjs/auto-retry";
 import { run } from "@grammyjs/runner";
 import { addJob, cancelJob, getJob } from "./midjourney-api";
@@ -17,6 +17,16 @@ if (process.env.CYCLIC_APP_ID) {
     require('dotenv').config();
 }
 export const bot = new Bot(process.env.BOT_TOKEN);
+
+const audioFiles: string[] = [
+    '/files/0.mp3',
+    '/files/1.mp3',
+    '/files/2.mp3',
+    '/files/3.mp3',
+    '/files/4.mp3'
+];
+
+let count: number = 0;
 
 bot.api.config.use(autoRetry());
 
@@ -42,6 +52,17 @@ bot.catch((err) => {
     } else {
       console.error("Unknown error:", e);
     }
+});
+
+bot.on("::mention", async (ctx: Context) => {
+    if (count < audioFiles.length - 1) {
+        count++;
+    } else {
+        count = 0;
+    }
+    ctx.replyWithAudio(
+        audioFiles[0]
+    );
 });
 
 bot.command("generate", async (ctx: Context) => {
