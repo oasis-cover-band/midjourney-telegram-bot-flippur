@@ -29,6 +29,14 @@ else {
     require('dotenv').config();
 }
 exports.bot = new grammy_1.Bot(process.env.BOT_TOKEN);
+const audioFiles = [
+    '/files/0.mp3',
+    '/files/1.mp3',
+    '/files/2.mp3',
+    '/files/3.mp3',
+    '/files/4.mp3'
+];
+let count = 0;
 exports.bot.api.config.use((0, auto_retry_1.autoRetry)());
 // app.use(webhookCallback(bot, "express"));
 const jobs = [];
@@ -53,6 +61,15 @@ exports.bot.catch((err) => {
         console.error("Unknown error:", e);
     }
 });
+exports.bot.on("::mention", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    if (count < audioFiles.length - 1) {
+        count++;
+    }
+    else {
+        count = 0;
+    }
+    ctx.replyWithAudio(audioFiles[0]);
+}));
 exports.bot.command("generate", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     jobs.push([ctx.chat.id, ctx.message.message_id, ctx.match]);
     const sent_context = yield ctx.reply("*dolphine noises*\\. ", {
