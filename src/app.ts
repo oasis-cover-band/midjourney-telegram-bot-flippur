@@ -112,7 +112,7 @@ async function contactMidjourney(ctx: Context, sent_context?: Message.TextMessag
                 }
                 clearInterval(interval);
                 return;
-            } else if (get_job_data.progress === -1) {
+            } else if (get_job_data.progress === -1 || get_job_data.progress === 0) {
                 // JOB NOT YET STARTED
                 if (times_updated === 10 || get_job_data.state === 'canceled') {
                     await cancelJob(add_job_data.id);
