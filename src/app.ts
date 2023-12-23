@@ -55,14 +55,14 @@ bot.catch((err) => {
 });
 
 bot.on("::mention", async (ctx: Context) => {
-    if (count < audioFiles.length - 1) {
-        count++;
-    } else {
-        count = 0;
-    }
-    ctx.replyWithAudio(
-        audioFiles[0]
-    );
+    // if (count < audioFiles.length - 1) {
+    //     count++;
+    // } else {
+    //     count = 0;
+    // }
+    // ctx.replyWithAudio(
+    //     audioFiles[0]
+    // );
 });
 
 bot.command("generate", async (ctx: Context) => {
